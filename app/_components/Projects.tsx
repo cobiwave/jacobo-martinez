@@ -1,4 +1,5 @@
 import { SectionHeading } from "./SectionHeading";
+import clsx from "clsx";
 import styles from "./Projects.module.css";
 
 const projects = [
@@ -34,7 +35,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className={`container ${styles.projects}`}
+      className={clsx("container", styles.projects)}
       aria-labelledby="projects-title"
     >
       <SectionHeading id="projects-title" index="02" title="Projects" />
@@ -44,7 +45,7 @@ export function Projects() {
         tempor incididunt.
       </p>
 
-      <ul className={`subgrid ${styles.list}`}>
+      <ul className={clsx("subgrid", styles.list)}>
         {projects.map((project) => (
           <li key={project.title} className={styles.card}>
             <div className={styles.media} aria-hidden="true" />

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "./Hero.module.css";
 
 const meta = [
@@ -9,7 +10,7 @@ const meta = [
 export function Hero() {
 	return (
 		<section
-			className={`container ${styles.hero}`}
+			className={clsx("container", styles.hero)}
 			aria-labelledby="hero-title"
 		>
 			<p className={styles.name}>Jacobo Martínez</p>
@@ -24,7 +25,7 @@ export function Hero() {
 				Monks, building websites and apps for Adidas, Amazon, HP and Intuit.
 			</p>
 
-			<dl className={`subgrid ${styles.meta}`}>
+			<dl className={clsx("subgrid", styles.meta)}>
 				{meta.map((item) => (
 					<div key={item.label} className={styles.metaItem}>
 						<dt className={styles.metaLabel}>{item.label}</dt>

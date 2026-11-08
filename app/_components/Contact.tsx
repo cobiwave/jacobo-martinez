@@ -2,10 +2,11 @@ import { SectionHeading } from "./SectionHeading";
 import styles from "./Contact.module.css";
 
 const links = [
-  { label: "Lorem", href: "#" },
-  { label: "Ipsum", href: "#" },
-  { label: "Dolor", href: "#" },
-  { label: "Sit amet", href: "#" },
+  { label: "Instagram — @cobiwave", href: "https://www.instagram.com/cobiwave/" },
+  {
+    label: "PASAJERO — @pasajero.studio",
+    href: "https://www.instagram.com/pasajero.studio/",
+  },
 ];
 
 export function Contact() {
@@ -14,17 +15,19 @@ export function Contact() {
       <SectionHeading id="contact-title" index="03" title="Contact" />
 
       <p className={styles.lead}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+        Have a project, a collaboration or a film in mind? Let&apos;s talk.
       </p>
 
-      <a className={styles.email} href="mailto:hello@loremipsum.com">
-        hello@loremipsum.com
+      <a className={styles.email} href="mailto:cobimr@protonmail.com">
+        cobimr@protonmail.com
       </a>
 
       <ul className={`subgrid ${styles.links}`}>
         {links.map((link) => (
-          <li key={link.label} className={styles.link}>
-            <a href={link.href}>{link.label}</a>
+          <li key={link.href} className={styles.link}>
+            <a href={link.href} target="_blank" rel="noopener noreferrer">
+              {link.label}
+            </a>
           </li>
         ))}
       </ul>

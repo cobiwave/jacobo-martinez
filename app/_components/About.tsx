@@ -3,20 +3,20 @@ import styles from "./About.module.css";
 
 const facts = [
   {
-    title: "Lorem ipsum",
-    text: "Dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
+    title: "Agencies",
+    text: "Six years engineering frontends at high-calibre digital agencies such as Monks.",
   },
   {
-    title: "Dolor sit amet consectetur",
-    text: "Tempor incididunt ut labore et dolore magna aliqua.",
+    title: "Clients",
+    text: "Adidas, Amazon, HP, Intuit and other global brands.",
   },
   {
-    title: "Adipiscing",
-    text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+    title: "PASAJERO Studio",
+    text: "Founder of a filmmaking and photography studio focused on cinematography and video direction.",
   },
   {
-    title: "Sed eiusmod",
-    text: "Duis aute irure dolor in reprehenderit.",
+    title: "Buenos Aires",
+    text: "Based in Argentina. Native Spanish, professional English.",
   },
 ];
 
@@ -26,20 +26,22 @@ export function About() {
       <SectionHeading id="about-title" index="01" title="About" />
 
       <p className={styles.statement}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore.
+        I build websites and apps that work flawlessly and look effortless,
+        where engineering meets a filmmaker&apos;s eye.
       </p>
 
       <div className={`subgrid ${styles.body}`}>
         <p>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore.
+          For the past six years I&apos;ve worked as a frontend engineer at
+          leading digital agencies like Monks, crafting digital experiences for
+          brands such as Adidas, Amazon, HP and Intuit — balancing solid,
+          functional code with a refined visual finish.
         </p>
         <p>
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-          officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-          omnis iste natus error sit voluptatem.
+          Beyond code, I&apos;m the founder of PASAJERO, a filmmaking and
+          photography studio where I express my artistic vision through
+          cinematography and video direction. That visual sensibility shapes
+          every interface I build.
         </p>
       </div>
 

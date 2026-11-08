@@ -3,7 +3,7 @@ import styles from "./Hero.module.css";
 const meta = [
 	{ label: "Experience", value: "6+ years" },
 	{ label: "Based in", value: "Buenos Aires, Argentina" },
-	{ label: "Languages", value: "Spanish (native), English (professional)" },
+	{ label: "Languages", value: "Spanish, English" },
 ];
 
 export function Hero() {

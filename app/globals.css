@@ -26,7 +26,8 @@
   --lh-snug: 1.2;
   --lh-body: 1.5;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial,
+  /* --font-neue-haas-display is set on <html> by next/font (app/fonts/) */
+  --font-sans: var(--font-neue-haas-display), "Helvetica Neue", Arial,
     sans-serif;
 
   /* Color */

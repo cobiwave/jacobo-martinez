@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { neueHaasDisplay } from "./fonts/neue-haas-display";
 import "./globals.css";
 
 /*
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
+    <html lang="en" className={neueHaasDisplay.variable}>
       <body>
         {children}
         <GridOverlay />

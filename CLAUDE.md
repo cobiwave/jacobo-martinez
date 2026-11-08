@@ -22,9 +22,10 @@ Early-stage Next.js 16 project (App Router, React 19, TypeScript, strict mode), 
 - **Next.js version caveat:** Next 16.x APIs differ from older versions. Bundled docs are in `node_modules/next/dist/docs/` (`01-app/`, `03-architecture/`, …) — consult them before using unfamiliar APIs rather than relying on memory.
 - **next.config.ts** enables `cacheComponents` (Cache Components / PPR model — dynamic data must be wrapped in `<Suspense>` or marked cached with `"use cache"`), `partialPrefetching`, and `experimental.agentFeedback`.
 - **Typed route helpers:** layouts/pages use the globally generated `LayoutProps<"/route">` / `PageProps<"/route">` types (generated into `.next/types` by `next dev`/`next build`) instead of hand-written prop types.
+
 ## Portfolio layout
 
-Static, minimalist single-page portfolio — everything renders at `/` (`app/page.tsx` composes Hero → About → Projects → Contact → Footer from `app/_components/`). No animations; placeholder copy is lorem ipsum.
+Static, minimalist single-page portfolio — everything renders at `/` (`app/page.tsx` composes Hero → About → Projects → Contact → Footer from `app/_components/`). Section titles use the shared `SectionHeading` component. No animations. Real copy is in place except Projects and the metadata description in `layout.tsx`, which are still lorem ipsum.
 
 **Styling:** plain CSS only (no Tailwind/Sass). Global tokens, reset and grid utilities in `app/globals.css`; one CSS Module per component, written with native CSS nesting (media queries nested inside each rule).
 
@@ -38,3 +39,5 @@ Static, minimalist single-page portfolio — everything renders at `/` (`app/pag
 - Dev-only grid overlay (`app/_components/GridOverlay.tsx`, rendered in `layout.tsx` only when `NODE_ENV === "development"`): press `g` in `pnpm dev` to toggle; state persists in localStorage.
 
 **Typography:** `html { font-size: 62.5% }` → 1rem = 10px. Always use `rem` for font sizes, preferably via the `--fs-*` tokens.
+
+**Font:** Neue Haas Display, self-hosted via `next/font/local` in `app/fonts/neue-haas-display.ts` (`.ttf` files alongside). The files' built-in weight classes are shifted, so weights are remapped to CSS convention there (Roman = 400, Thin = 250) — use those values, not the cut names' implied weights. The font's CSS variable is set on `<html>` in `layout.tsx` and consumed via `--font-sans` in `globals.css`.

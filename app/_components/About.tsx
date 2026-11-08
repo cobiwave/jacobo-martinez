@@ -1,4 +1,5 @@
 import { SectionHeading } from "./SectionHeading";
+import clsx from "clsx";
 import styles from "./About.module.css";
 
 const facts = [
@@ -24,7 +25,7 @@ export function About() {
 	return (
 		<section
 			id="about"
-			className={`container ${styles.about}`}
+			className={clsx("container", styles.about)}
 			aria-labelledby="about-title"
 		>
 			<SectionHeading id="about-title" index="01" title="About" />
@@ -34,7 +35,7 @@ export function About() {
 				where engineering meets a filmmaker&apos;s eye.
 			</p>
 
-			<div className={`subgrid ${styles.body}`}>
+			<div className={clsx("subgrid", styles.body)}>
 				<p>
 					For the past six years I&apos;ve worked as a frontend engineer at
 					leading digital agencies like Monks, crafting digital experiences for
@@ -49,7 +50,7 @@ export function About() {
 				</p>
 			</div>
 
-			<ul className={`subgrid ${styles.facts}`}>
+			<ul className={clsx("subgrid", styles.facts)}>
 				{facts.map((fact) => (
 					<li key={fact.title} className={styles.fact}>
 						<h3 className={styles.factTitle}>{fact.title}</h3>

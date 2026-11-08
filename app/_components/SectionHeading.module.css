@@ -1,0 +1,20 @@
+/* Shared section label: full width on mobile/tablet, left 3 columns on desktop. */
+.heading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  @media (width >= 75em) {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+  }
+}
+
+.index {
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}

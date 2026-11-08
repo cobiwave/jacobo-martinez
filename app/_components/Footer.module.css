@@ -1,0 +1,33 @@
+/* Mirrors the hero's top row (name / role). */
+.footer {
+  padding-block: 2.4rem;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.copy {
+  grid-column: 1 / span 2;
+
+  @media (width >= 48em) {
+    grid-column: 1 / span 4;
+  }
+
+  @media (width >= 75em) {
+    grid-column: 1 / span 6;
+  }
+}
+
+.location {
+  grid-column: 3 / -1;
+  text-align: end;
+
+  @media (width >= 48em) {
+    grid-column: 5 / -1;
+  }
+
+  @media (width >= 75em) {
+    grid-column: 7 / -1;
+  }
+}

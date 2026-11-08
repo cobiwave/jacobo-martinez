@@ -1,0 +1,60 @@
+/* Uses the global .container, so it always matches the real grid tokens. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  pointer-events: none;
+
+  /* Breakpoint label, bottom-right corner. */
+  &::after {
+    content: "Mobile · 4 cols";
+    position: fixed;
+    inset-block-end: 1.2rem;
+    inset-inline-end: 1.2rem;
+    padding: 0.4rem 0.8rem;
+    font: 500 1.1rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #fff;
+    background: rgb(230 0 80 / 0.85);
+
+    @media (width >= 48em) {
+      content: "Tablet · 8 cols";
+    }
+
+    @media (width >= 75em) {
+      content: "Desktop · 12 cols";
+    }
+  }
+
+  :global(html[data-grid-overlay]) & {
+    display: grid;
+  }
+}
+
+.column {
+  background: rgb(230 0 80 / 0.07);
+  box-shadow:
+    inset 1px 0 rgb(230 0 80 / 0.25),
+    inset -1px 0 rgb(230 0 80 / 0.25);
+
+  /* Render only as many columns as the current breakpoint has. */
+  &:nth-child(n + 5) {
+    display: none;
+  }
+
+  @media (width >= 48em) {
+    &:nth-child(n + 5) {
+      display: block;
+    }
+
+    &:nth-child(n + 9) {
+      display: none;
+    }
+  }
+
+  @media (width >= 75em) {
+    &:nth-child(n + 9) {
+      display: block;
+    }
+  }
+}

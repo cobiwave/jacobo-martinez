@@ -1,0 +1,101 @@
+/*
+  Desktop rows: 1 heading + intro · 2 list
+*/
+.projects {
+  row-gap: 4.8rem;
+  padding-block-end: var(--space-section);
+}
+
+.intro {
+  grid-column: 1 / -1;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+
+  @media (width >= 48em) {
+    grid-column: 1 / span 6;
+  }
+
+  @media (width >= 75em) {
+    grid-column: 5 / span 6;
+    grid-row: 1;
+  }
+}
+
+/* Column subgrid of the page grid. Gap between cards (rows of cards). */
+.list {
+  row-gap: 6.4rem;
+
+  @media (width >= 75em) {
+    grid-row: 2;
+    row-gap: 9.6rem;
+  }
+}
+
+/*
+  Each card is a subgrid on BOTH axes:
+  - columns: its children snap to the page's 12/8/4 tracks.
+  - rows: spans 4 tracks (media · title+year · description · tags) shared
+    with the card next to it, so titles and descriptions line up even when
+    their text lengths differ.
+  The card's own row-gap overrides the list's gap inside the card.
+*/
+.card {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: span 4;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  row-gap: 1.2rem;
+
+  @media (width >= 48em) {
+    grid-column: span 4;
+  }
+
+  @media (width >= 75em) {
+    grid-column: span 6;
+  }
+}
+
+.media {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  aspect-ratio: 4 / 3;
+  margin-block-end: 1.2rem;
+  background: var(--color-placeholder);
+}
+
+.title {
+  grid-column: 1 / -2;
+  grid-row: 2;
+  font-size: var(--fs-lead);
+  font-weight: 500;
+}
+
+.year {
+  grid-column: -2 / -1;
+  grid-row: 2;
+  justify-self: end;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.description {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  color: var(--color-muted);
+
+  @media (width >= 75em) {
+    grid-column: 1 / -2;
+  }
+}
+
+.tags {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

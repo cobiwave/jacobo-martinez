@@ -15,6 +15,8 @@ Package manager is **pnpm** (pinned via `packageManager` in package.json).
 
 No test framework is configured yet.
 
+**Commits:** [Conventional Commits](https://www.conventionalcommits.org), enforced by a `commit-msg` hook (commitlint + `@commitlint/config-conventional`, installed by `simple-git-hooks` via the `prepare` script on `pnpm install`). Format `type(scope)?: subject` — types: `feat`, `fix`, `style` (formatting only, not CSS features), `refactor`, `perf`, `docs`, `test`, `build`, `ci`, `chore`, `revert`. Subject lowercase, no trailing period, header ≤ 100 chars; body lines ≤ 100 chars. If the hook rejects a message, fix the message — never bypass it with `--no-verify`.
+
 **Indentation:** always 2 spaces, never tabs, in every file (TS/TSX, CSS, JSON, Markdown). Match this when editing files that still contain tabs.
 
 ## Stack and architecture

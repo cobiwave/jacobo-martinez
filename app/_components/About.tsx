@@ -50,7 +50,7 @@ export function About() {
         })
         .from(
           split.words,
-          { yPercent: 100, stagger: motion.stagger.words },
+          { yPercent: motion.maskOffset, stagger: motion.stagger.words },
           "<0.2",
         )
         .from(

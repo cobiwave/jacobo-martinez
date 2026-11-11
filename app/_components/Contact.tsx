@@ -42,7 +42,7 @@ export function Contact() {
         })
         .from(
           lead.words,
-          { yPercent: 100, stagger: motion.stagger.words },
+          { yPercent: motion.maskOffset, stagger: motion.stagger.words },
           "<0.2",
         )
         // Not split: its underline wouldn't carry over to the split words.

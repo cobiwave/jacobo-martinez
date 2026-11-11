@@ -12,6 +12,13 @@ export const motion = {
   ease: "expo.out",
   /** Distance for fade-up reveals (px). */
   y: 24,
+  /**
+   * Start offset for masked word reveals (yPercent). Must exceed 100: the
+   * `.split-word-mask` padding (0.1em, globals.css) extends the mask below the
+   * word, so at exactly 100 the top of the glyphs still peeks out (visible on
+   * iOS WebKit, whose font metrics sit glyphs higher in the line box).
+   */
+  maskOffset: 120,
   stagger: {
     words: 0.08,
     items: 0.1,

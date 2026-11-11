@@ -1,38 +1,70 @@
+"use client";
+
+import gsap from "gsap";
 import clsx from "clsx";
+import { SplitText } from "gsap/all";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import styles from "./Hero.module.css";
 
+gsap.registerPlugin(SplitText);
+
 const meta = [
-	{ label: "Experience", value: "6+ years" },
-	{ label: "Based in", value: "Buenos Aires, Argentina" },
-	{ label: "Languages", value: "Spanish, English" },
+  { label: "Experience", value: "6+ years" },
+  { label: "Based in", value: "Buenos Aires, Argentina" },
+  { label: "Languages", value: "Spanish, English" },
 ];
 
 export function Hero() {
-	return (
-		<section
-			className={clsx("container", styles.hero)}
-			aria-labelledby="hero-title"
-		>
-			<p className={styles.name}>Jacobo Martínez</p>
-			<p className={styles.role}>Frontend Engineer</p>
+  const containerRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
-			<h1 id="hero-title" className={styles.title}>
-				Functional, visually elegant digital experiences.
-			</h1>
+  useGSAP(
+    () => {
+      const split = SplitText.create(titleRef.current, {
+        type: "words",
+        mask: "words",
+      });
 
-			<p className={styles.intro}>
-				Frontend engineer with six years at top-tier digital agencies like
-				Monks, building websites and apps for Adidas, Amazon, HP and Intuit.
-			</p>
+      gsap.from(split.words, {
+        yPercent: 100,
+        duration: 1.2,
+        stagger: 0.08,
+        ease: "expo.out",
+        delay: 0.2,
+      });
+    },
+    {
+      scope: containerRef,
+    },
+  );
 
-			<dl className={clsx("subgrid", styles.meta)}>
-				{meta.map((item) => (
-					<div key={item.label} className={styles.metaItem}>
-						<dt className={styles.metaLabel}>{item.label}</dt>
-						<dd>{item.value}</dd>
-					</div>
-				))}
-			</dl>
-		</section>
-	);
+  return (
+    <section
+      ref={containerRef}
+      className={clsx("container", styles.hero)}
+      aria-labelledby="hero-title"
+    >
+      <p className={styles.name}>Jacobo Martínez</p>
+      <p className={styles.role}>Frontend Engineer</p>
+
+      <h1 ref={titleRef} id="hero-title" className={styles.title}>
+        Functional, visually elegant digital experiences.
+      </h1>
+
+      <p className={styles.intro}>
+        Frontend engineer with six years at top-tier digital agencies like
+        Monks, building websites and apps for Adidas, Amazon, HP and Intuit.
+      </p>
+
+      <dl className={clsx("subgrid", styles.meta)}>
+        {meta.map((item) => (
+          <div key={item.label} className={styles.metaItem}>
+            <dt className={styles.metaLabel}>{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
 }

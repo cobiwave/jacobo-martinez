@@ -8,7 +8,7 @@ const links = [
 		href: "https://www.instagram.com/cobiwave/",
 	},
 	{
-		label: "PASAJERO STUDIO — @pasajero.studio",
+		label: "@pasajero.studio",
 		href: "https://www.instagram.com/pasajero.studio/",
 	},
 ];

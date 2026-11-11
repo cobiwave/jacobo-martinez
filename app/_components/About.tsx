@@ -12,7 +12,7 @@ const facts = [
 		text: "Adidas, Amazon, HP, Intuit and other global brands.",
 	},
 	{
-		title: "PASAJERO STUDIO",
+		title: "PASAJERO",
 		text: "Founder of a filmmaking and photography studio focused on cinematography and video direction.",
 	},
 	{

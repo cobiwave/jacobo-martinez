@@ -2,8 +2,6 @@
   Rows: 1 name/role · 2 title · 3 intro (+ meta on desktop) · 4 meta
 */
 .hero {
-  /* Revealed by the intro timeline in Hero.tsx (autoAlpha: 1). */
-  visibility: hidden;
   row-gap: 4rem;
   padding-block: 2.4rem var(--space-section);
 }
@@ -57,16 +55,6 @@
 
   @media (width >= 75em) {
     margin-block-start: 14.4rem;
-  }
-
-  /* SplitText word masks (overflow: clip): extra room so glyphs that overhang
-     the word box (negative tracking, descenders) aren't cut. Negative margins
-     cancel the padding, so layout is unchanged. */
-  & > * {
-    padding-inline: 0.1em;
-    margin-inline: -0.1em;
-    padding-block-end: 0.1em;
-    margin-block-end: -0.1em;
   }
 }
 

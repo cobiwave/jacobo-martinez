@@ -1,13 +1,15 @@
 "use client";
 
-import gsap from "gsap";
 import clsx from "clsx";
-import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
+import {
+  childrenOf,
+  motion,
+  revealTimeline,
+  splitWords,
+  useMotion,
+} from "@/app/_lib/motion";
 import styles from "./Hero.module.css";
-
-gsap.registerPlugin(useGSAP, SplitText);
 
 const meta = [
   { label: "Experience", value: "6+ years" },
@@ -23,46 +25,34 @@ export function Hero() {
   const introRef = useRef<HTMLParagraphElement>(null);
   const metaRef = useRef<HTMLDListElement>(null);
 
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
+  useMotion(containerRef, {
+    full: () => {
+      const split = splitWords(titleRef.current);
 
-      // The section is hidden in CSS to avoid a flash before hydration;
-      // every branch must reveal it.
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(containerRef.current, { autoAlpha: 1 });
-      });
-
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const split = SplitText.create(titleRef.current, {
-          type: "words",
-          mask: "words",
-        });
-        const metaItems = gsap.utils.toArray<HTMLElement>(
-          metaRef.current?.children ?? [],
+      revealTimeline()
+        .from([nameRef.current, roleRef.current], {
+          autoAlpha: 0,
+          y: 16,
+          stagger: motion.stagger.words,
+        })
+        .from(
+          split.words,
+          { yPercent: 100, stagger: motion.stagger.words },
+          "<0.2",
+        )
+        .from(introRef.current, { autoAlpha: 0, y: motion.y }, "<0.5")
+        .from(
+          childrenOf(metaRef.current),
+          { autoAlpha: 0, y: motion.y, stagger: motion.stagger.items },
+          "<0.15",
         );
-
-        gsap
-          .timeline({ defaults: { duration: 1.2, ease: "expo.out" } })
-          .set(containerRef.current, { autoAlpha: 1 })
-          .from([nameRef.current, roleRef.current], {
-            autoAlpha: 0,
-            y: 16,
-            stagger: 0.08,
-          })
-          .from(split.words, { yPercent: 100, stagger: 0.08 }, "<0.2")
-          .from(introRef.current, { autoAlpha: 0, y: 24 }, "<0.5")
-          .from(metaItems, { autoAlpha: 0, y: 24, stagger: 0.1 }, "<0.15");
-      });
-
-      return () => mm.revert();
     },
-    { scope: containerRef },
-  );
+  });
 
   return (
     <section
       ref={containerRef}
+      data-reveal
       className={clsx("container", styles.hero)}
       aria-labelledby="hero-title"
     >

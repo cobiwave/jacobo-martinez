@@ -22,6 +22,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={neueHaasDisplay.variable}>
       <body>
+        {/* Sections with data-reveal are hidden until GSAP runs; show them without JS. */}
+        <noscript>
+          <style>{"[data-reveal] { visibility: visible !important; }"}</style>
+        </noscript>
         {children}
         <GridOverlay />
       </body>

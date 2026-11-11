@@ -33,9 +33,14 @@ Real copy is in place except Projects and the metadata description in `layout.ts
 
 **Animations:** GSAP (`gsap` + `@gsap/react`), used sparingly.
 - **Before writing or changing any GSAP code, load the matching GSAP skill(s)** (installed in `.claude/skills/`): `gsap-react` for any component work (always, since this is React), plus `gsap-core` (tweens, easing, `matchMedia`/reduced motion), `gsap-timeline` (sequencing), `gsap-plugins` (SplitText, Flip, etc.), `gsap-scrolltrigger` (scroll-driven), `gsap-performance` (jank/FPS), `gsap-utils` (`gsap.utils.*`) as relevant. Follow them over memory.
-- Run animations inside `useGSAP` with a `scope` ref so they are cleaned up on unmount.
+- **Use the helpers in `app/_lib/motion.ts`** (they register `useGSAP`, ScrollTrigger and SplitText; don't re-register in components):
+  - `useMotion(scopeRef, { full, reduced? })` instead of calling `useGSAP` directly. It wraps `gsap.matchMedia()` so `full` only runs without `prefers-reduced-motion`. `reduced` is only for extra setup under reduced motion.
+  - Put `data-reveal` on the scope element (section root): it hides the section in CSS so the server-rendered HTML doesn't flash in its final state before hydration. `useMotion` reveals it after the tweens set their start state (both branches); a `<noscript>` rule in `layout.tsx` shows it without JS.
+  - `revealTimeline(trigger?)` — timeline with the shared `motion` tokens (`expo.out`, 1.2s); with a trigger it plays once at `top 75%` via ScrollTrigger (attached to the timeline, never to child tweens).
+  - `splitWords(el)` — masked word split; masks get the global `split-word-mask` class (padding fix for clipped glyphs in `globals.css`). Don't split text with `text-decoration` (it doesn't carry into the split words).
+  - `childrenOf(el)` — children as an array for staggering list items.
+- Section pattern: heading children fade up → large text word-mask reveal → body/list items fade up with stagger, sequenced with the position parameter (`"<0.2"`), not `delay`. Long sections give lower blocks their own `revealTimeline`.
 - Target elements through refs, not class selectors: CSS Module class names are hashed, so `".title"` never matches.
-- Register plugins (e.g. `SplitText`) at module level with `gsap.registerPlugin`.
 - Always pass a config object to `SplitText.create(el, { type: … })`: in GSAP 3.15 omitting it throws `Cannot read properties of undefined (reading 'overwrite')`.
 
 **Styling:** plain CSS only (no Tailwind/Sass). Global tokens, reset and grid utilities in `app/globals.css`; one CSS Module per component, written with native CSS nesting (media queries nested inside each rule).

@@ -15,6 +15,10 @@ Package manager is **pnpm** (pinned via `packageManager` in package.json).
 
 No test framework is configured yet.
 
+**Commits:** [Conventional Commits](https://www.conventionalcommits.org), enforced by a `commit-msg` hook (commitlint + `@commitlint/config-conventional`, installed by `simple-git-hooks` via the `prepare` script on `pnpm install`). Format `type(scope)?: subject` — types: `feat`, `fix`, `style` (formatting only, not CSS features), `refactor`, `perf`, `docs`, `test`, `build`, `ci`, `chore`, `revert`. Subject lowercase, no trailing period, header ≤ 100 chars; body lines ≤ 100 chars. If the hook rejects a message, fix the message — never bypass it with `--no-verify`.
+
+**Indentation:** always 2 spaces, never tabs, in every file (TS/TSX, CSS, JSON, Markdown). Match this when editing files that still contain tabs.
+
 ## Stack and architecture
 
 Early-stage Next.js 16 project (App Router, React 19, TypeScript, strict mode), bootstrapped from create-next-app. All routes live in `app/`; there is no `src/` directory. Path alias `@/*` maps to the repo root.
@@ -25,7 +29,21 @@ Early-stage Next.js 16 project (App Router, React 19, TypeScript, strict mode), 
 
 ## Portfolio layout
 
-Static, minimalist single-page portfolio — everything renders at `/` (`app/page.tsx` composes Hero → About → Projects → Contact → Footer from `app/_components/`). Section titles use the shared `SectionHeading` component. No animations. Real copy is in place except Projects and the metadata description in `layout.tsx`, which are still lorem ipsum.
+Static, minimalist single-page portfolio — everything renders at `/` (`app/page.tsx` composes Hero → About → Projects → Contact → Footer from `app/_components/`). Section titles use the shared `SectionHeading` component.
+
+Real copy is in place except Projects and the metadata description in `layout.tsx`, which are still lorem ipsum.
+
+**Animations:** GSAP (`gsap` + `@gsap/react`), used sparingly.
+- **Before writing or changing any GSAP code, load the matching GSAP skill(s)** (installed in `.claude/skills/`): `gsap-react` for any component work (always, since this is React), plus `gsap-core` (tweens, easing, `matchMedia`/reduced motion), `gsap-timeline` (sequencing), `gsap-plugins` (SplitText, Flip, etc.), `gsap-scrolltrigger` (scroll-driven), `gsap-performance` (jank/FPS), `gsap-utils` (`gsap.utils.*`) as relevant. Follow them over memory.
+- **Use the helpers in `app/_lib/motion.ts`** (they register `useGSAP`, ScrollTrigger and SplitText; don't re-register in components):
+  - `useMotion(scopeRef, { full, reduced? })` instead of calling `useGSAP` directly. It wraps `gsap.matchMedia()` so `full` only runs without `prefers-reduced-motion`. `reduced` is only for extra setup under reduced motion.
+  - Put `data-reveal` on the scope element (section root): it hides the section in CSS so the server-rendered HTML doesn't flash in its final state before hydration. `useMotion` reveals it after the tweens set their start state (both branches); a `<noscript>` rule in `layout.tsx` shows it without JS.
+  - `revealTimeline(trigger?)` — timeline with the shared `motion` tokens (`expo.out`, 1.2s); with a trigger it plays once at `top 75%` via ScrollTrigger (attached to the timeline, never to child tweens).
+  - `splitWords(el)` — masked word split; masks get the global `split-word-mask` class (padding fix for clipped glyphs in `globals.css`). Don't split text with `text-decoration` (it doesn't carry into the split words).
+  - `childrenOf(el)` — children as an array for staggering list items.
+- Section pattern: heading children fade up → large text word-mask reveal → body/list items fade up with stagger, sequenced with the position parameter (`"<0.2"`), not `delay`. Long sections give lower blocks their own `revealTimeline`.
+- Target elements through refs, not class selectors: CSS Module class names are hashed, so `".title"` never matches.
+- Always pass a config object to `SplitText.create(el, { type: … })`: in GSAP 3.15 omitting it throws `Cannot read properties of undefined (reading 'overwrite')`.
 
 **Styling:** plain CSS only (no Tailwind/Sass). Global tokens, reset and grid utilities in `app/globals.css`; one CSS Module per component, written with native CSS nesting (media queries nested inside each rule).
 

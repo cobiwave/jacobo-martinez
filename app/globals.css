@@ -171,3 +171,25 @@ video {
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
 }
+
+/*
+  SplitText word masks (see splitWords in app/_lib/motion.ts). The mask clips
+  with overflow: clip, so give it extra room for glyphs that overhang the word
+  box (negative tracking, descenders); negative margins cancel the padding so
+  layout is unchanged.
+*/
+:where(.split-word-mask) {
+  padding-inline: 0.1em;
+  margin-inline: -0.1em;
+  padding-block-end: 0.1em;
+  margin-block-end: -0.1em;
+}
+
+/*
+  Sections animated with useMotion (app/_lib/motion.ts) start hidden so the
+  server-rendered HTML doesn't flash in its final state before hydration;
+  useMotion reveals them. A <noscript> rule in layout.tsx shows them without JS.
+*/
+:where([data-reveal]) {
+  visibility: hidden;
+}

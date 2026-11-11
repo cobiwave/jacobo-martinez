@@ -40,6 +40,7 @@
   The card's own row-gap overrides the list's gap inside the card.
 */
 .card {
+  position: relative;
   display: grid;
   grid-column: 1 / -1;
   grid-row: span 4;
@@ -59,9 +60,15 @@
 .media {
   grid-column: 1 / -1;
   grid-row: 1;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 2940 / 1672; /* matches the cover screenshots */
+  position: relative;
+  overflow: hidden;
   margin-block-end: 1.2rem;
   background: var(--color-placeholder);
+
+  & img {
+    object-fit: cover;
+  }
 }
 
 .title {
@@ -69,6 +76,24 @@
   grid-row: 2;
   font-size: var(--fs-lead);
   font-weight: 500;
+}
+
+/* Stretched link: the title's link covers the whole card, so the cover is clickable too. */
+.link {
+  color: inherit;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
 }
 
 .year {

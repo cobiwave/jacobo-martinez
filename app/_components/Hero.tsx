@@ -37,7 +37,7 @@ export function Hero() {
         })
         .from(
           split.words,
-          { yPercent: 100, stagger: motion.stagger.words },
+          { yPercent: motion.maskOffset, stagger: motion.stagger.words },
           "<0.2",
         )
         .from(introRef.current, { autoAlpha: 0, y: motion.y }, "<0.5")

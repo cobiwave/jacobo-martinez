@@ -15,6 +15,8 @@ Package manager is **pnpm** (pinned via `packageManager` in package.json).
 
 No test framework is configured yet.
 
+**Indentation:** always 2 spaces, never tabs, in every file (TS/TSX, CSS, JSON, Markdown). Match this when editing files that still contain tabs.
+
 ## Stack and architecture
 
 Early-stage Next.js 16 project (App Router, React 19, TypeScript, strict mode), bootstrapped from create-next-app. All routes live in `app/`; there is no `src/` directory. Path alias `@/*` maps to the repo root.
@@ -25,7 +27,16 @@ Early-stage Next.js 16 project (App Router, React 19, TypeScript, strict mode), 
 
 ## Portfolio layout
 
-Static, minimalist single-page portfolio — everything renders at `/` (`app/page.tsx` composes Hero → About → Projects → Contact → Footer from `app/_components/`). Section titles use the shared `SectionHeading` component. No animations. Real copy is in place except Projects and the metadata description in `layout.tsx`, which are still lorem ipsum.
+Static, minimalist single-page portfolio — everything renders at `/` (`app/page.tsx` composes Hero → About → Projects → Contact → Footer from `app/_components/`). Section titles use the shared `SectionHeading` component.
+
+Real copy is in place except Projects and the metadata description in `layout.tsx`, which are still lorem ipsum.
+
+**Animations:** GSAP (`gsap` + `@gsap/react`), used sparingly.
+- **Before writing or changing any GSAP code, load the matching GSAP skill(s)** (installed in `.claude/skills/`): `gsap-react` for any component work (always, since this is React), plus `gsap-core` (tweens, easing, `matchMedia`/reduced motion), `gsap-timeline` (sequencing), `gsap-plugins` (SplitText, Flip, etc.), `gsap-scrolltrigger` (scroll-driven), `gsap-performance` (jank/FPS), `gsap-utils` (`gsap.utils.*`) as relevant. Follow them over memory.
+- Run animations inside `useGSAP` with a `scope` ref so they are cleaned up on unmount.
+- Target elements through refs, not class selectors: CSS Module class names are hashed, so `".title"` never matches.
+- Register plugins (e.g. `SplitText`) at module level with `gsap.registerPlugin`.
+- Always pass a config object to `SplitText.create(el, { type: … })`: in GSAP 3.15 omitting it throws `Cannot read properties of undefined (reading 'overwrite')`.
 
 **Styling:** plain CSS only (no Tailwind/Sass). Global tokens, reset and grid utilities in `app/globals.css`; one CSS Module per component, written with native CSS nesting (media queries nested inside each rule).
 

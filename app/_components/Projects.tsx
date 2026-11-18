@@ -12,6 +12,7 @@ import {
 import { SectionHeading } from "./SectionHeading";
 import styles from "./Projects.module.css";
 import pasajeroCover from "@/public/pasajero.studio_.jpg";
+import sfCover from "@/public/sacred-force.jpg";
 
 const projects = [
   {
@@ -24,6 +25,18 @@ const projects = [
     image: {
       src: pasajeroCover,
       alt: "Pasajero Studio website homepage",
+    },
+  },
+  {
+    title: "SACRED FORCE",
+    year: "2026",
+    url: "https://sacred-force-tattoo.vercel.app/",
+    description:
+      "Website for a tattoo studio in Buenos Aires, Argentina. A dark, editorial portfolio that puts each artist's ink front and center, translating the studio's raw, devotional energy to the screen. Built with Next.js.",
+    tags: ["Next.js", "React", "Design & Development"],
+    image: {
+      src: sfCover,
+      alt: "Sacred Force Tattoo website homepage",
     },
   },
 ];

@@ -6,8 +6,7 @@
   padding-block: 2.4rem var(--space-section);
 }
 
-.name,
-.role {
+.name {
   grid-row: 1;
   font-size: var(--fs-caption);
   letter-spacing: 0.08em;
@@ -26,10 +25,14 @@
   }
 }
 
-.role {
+.social {
   grid-column: 3 / -1;
-  text-align: end;
-  color: var(--color-muted);
+  grid-row: 1;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1.6rem;
+  list-style: none;
 
   @media (width >= 48em) {
     grid-column: 5 / -1;
@@ -38,6 +41,23 @@
   @media (width >= 75em) {
     grid-column: 7 / -1;
   }
+}
+
+.socialLink {
+  display: block;
+  color: var(--color-muted);
+  transition: color 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    color: inherit;
+  }
+}
+
+.socialIcon {
+  display: block;
+  inline-size: 1.8rem;
+  block-size: 1.8rem;
 }
 
 .title {

@@ -9,7 +9,14 @@ import {
   splitWords,
   useMotion,
 } from "@/app/_lib/motion";
+import { social } from "@/app/_lib/social";
+import { GitHubIcon, LinkedInIcon } from "./icons";
 import styles from "./Hero.module.css";
+
+const socialLinks = [
+  { ...social.linkedin, Icon: LinkedInIcon },
+  { ...social.github, Icon: GitHubIcon },
+];
 
 const meta = [
   { label: "Experience", value: "6+ years" },
@@ -20,7 +27,7 @@ const meta = [
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const nameRef = useRef<HTMLParagraphElement>(null);
-  const roleRef = useRef<HTMLParagraphElement>(null);
+  const socialRef = useRef<HTMLUListElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);
   const metaRef = useRef<HTMLDListElement>(null);
@@ -30,7 +37,7 @@ export function Hero() {
       const split = splitWords(titleRef.current);
 
       revealTimeline()
-        .from([nameRef.current, roleRef.current], {
+        .from([nameRef.current, socialRef.current], {
           autoAlpha: 0,
           y: 16,
           stagger: motion.stagger.words,
@@ -59,9 +66,21 @@ export function Hero() {
       <p ref={nameRef} className={styles.name}>
         Jacobo Martínez
       </p>
-      <p ref={roleRef} className={styles.role}>
-        Frontend Engineer
-      </p>
+      <ul ref={socialRef} className={styles.social}>
+        {socialLinks.map(({ label, href, Icon }) => (
+          <li key={href}>
+            <a
+              className={styles.socialLink}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+            >
+              <Icon className={styles.socialIcon} />
+            </a>
+          </li>
+        ))}
+      </ul>
 
       <h1 ref={titleRef} id="hero-title" className={styles.title}>
         Functional, visually elegant digital experiences.

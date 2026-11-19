@@ -9,19 +9,11 @@ import {
   splitWords,
   useMotion,
 } from "@/app/_lib/motion";
+import { social } from "@/app/_lib/social";
 import { SectionHeading } from "./SectionHeading";
 import styles from "./Contact.module.css";
 
-const links = [
-  {
-    label: "Instagram — @cobiwave",
-    href: "https://www.instagram.com/cobiwave/",
-  },
-  {
-    label: "@pasajero.studio",
-    href: "https://www.instagram.com/pasajero.studio/",
-  },
-];
+const links = [social.linkedin, social.github];
 
 export function Contact() {
   const containerRef = useRef<HTMLElement>(null);

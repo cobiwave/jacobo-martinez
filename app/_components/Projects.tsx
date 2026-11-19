@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import clsx from "clsx";
 import { useRef } from "react";
 import {
@@ -12,7 +12,8 @@ import {
 import { SectionHeading } from "./SectionHeading";
 import styles from "./Projects.module.css";
 import pasajeroCover from "@/public/pasajero.studio_.jpg";
-import sfCover from "@/public/sacred-force.jpg";
+import sacredForceCover from "@/public/sacred-force.jpg";
+import aiVisibilityCover from "@/public/ai-visibility.jpg";
 
 const projects = [
   {
@@ -35,11 +36,30 @@ const projects = [
       "Website for a tattoo studio in Buenos Aires, Argentina. A dark, editorial portfolio that puts each artist's ink front and center, translating the studio's raw, devotional energy to the screen. Built with Next.js.",
     tags: ["Next.js", "React", "Design & Development"],
     image: {
-      src: sfCover,
+      src: sacredForceCover,
       alt: "Sacred Force Tattoo website homepage",
     },
   },
-];
+  {
+    title: "AI VISIBILITY POC",
+    year: "2026",
+    url: "https://github.com/cobiwave/ai-visibility-dashboard",
+    description:
+      "Dashboard concept for Answer Engine Optimization: tracking how often a brand is mentioned, ranked and cited in answers from ChatGPT, Perplexity, Gemini and Google's AI Overviews. A deep dive into modern Next.js rendering, with static shells, partial prerendering and on-demand revalidation, plus React Query, a bilingual UI and a hand-built SVG chart.",
+    tags: ["Next.js", "TanStack Query", "Design & Development"],
+    image: {
+      src: aiVisibilityCover,
+      alt: "AI Visibility Dashboard homepage",
+    },
+  },
+] satisfies {
+  title: string;
+  year: string;
+  url: string;
+  description: string;
+  tags: string[];
+  image?: { src: StaticImageData; alt: string };
+}[];
 
 export function Projects() {
   const containerRef = useRef<HTMLElement>(null);
@@ -60,16 +80,17 @@ export function Projects() {
       // One trigger per card, so each reveals as it scrolls into view.
       for (const card of childrenOf(listRef.current)) {
         const [media, ...details] = childrenOf(card);
+        const img = media.querySelector("img");
 
-        revealTimeline(card)
+        const tl = revealTimeline(card)
           // Image wipes up from the bottom edge while settling from a slight zoom.
-          .from(media, { clipPath: "inset(100% 0% 0% 0%)" })
-          .from(media.querySelector("img"), { scale: 1.2 }, "<")
-          .from(
-            details,
-            { autoAlpha: 0, y: motion.y, stagger: motion.stagger.items },
-            "<0.3",
-          );
+          .from(media, { clipPath: "inset(100% 0% 0% 0%)" });
+        if (img) tl.from(img, { scale: 1.2 }, "<");
+        tl.from(
+          details,
+          { autoAlpha: 0, y: motion.y, stagger: motion.stagger.items },
+          "<0.3",
+        );
       }
     },
   });
@@ -99,13 +120,15 @@ export function Projects() {
         {projects.map((project) => (
           <li key={project.title} className={styles.card}>
             <div className={styles.media}>
-              <Image
-                src={project.image.src}
-                alt={project.image.alt}
-                fill
-                placeholder="blur"
-                sizes="(width >= 75em) 50vw, (width >= 48em) 50vw, 100vw"
-              />
+              {project.image && (
+                <Image
+                  src={project.image.src}
+                  alt={project.image.alt}
+                  fill
+                  placeholder="blur"
+                  sizes="(width >= 75em) 50vw, (width >= 48em) 50vw, 100vw"
+                />
+              )}
             </div>
             <h3 className={styles.title}>
               <a
